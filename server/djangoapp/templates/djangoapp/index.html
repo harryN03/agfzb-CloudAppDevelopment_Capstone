@@ -21,6 +21,15 @@
         <div class="container">
             <a href="contact">Contact</a>
             <a href="about">About</a>
+            {% if user.is_authenticated %}
+            <p>Username: {{user.username}}</p>
+            <a class="btn btn-link"><button>Sign out</button></a>
+            {%else %}
+            <input type="text" class="form-control" placeholder="Username" name="username" >
+            <input type="password" class="form-control" placeholder="Password" name="psw" >
+            <a href='login'><button class="btn btn-primary" type="submit">Login</button></a>
+            <a class="btn btn-link">Sign Up</a>
+            {% endif %}
         </div>
     </nav>
     <!--Add a dealer table here -->
