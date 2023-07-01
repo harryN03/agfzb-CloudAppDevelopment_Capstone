@@ -21,14 +21,27 @@
         <div class="container">
             <a href="contact">Contact</a>
             <a href="about">About</a>
+            <br>
             {% if user.is_authenticated %}
-            <p>Username: {{user.username}}</p>
-            <a class="btn btn-link"><button>Sign out</button></a>
+            <span>{{user.username}}</span>
+            <a href="{% url 'djangoapp:logout' %}">Logout</a>
+
             {%else %}
-            <input type="text" class="form-control" placeholder="Username" name="username" >
-            <input type="password" class="form-control" placeholder="Password" name="psw" >
-            <a href='login'><button class="btn btn-primary" type="submit">Login</button></a>
-            <a class="btn btn-link">Sign Up</a>
+            <form action="{% url 'djangoapp:login' %}"  method="post">
+                {% csrf_token %}
+                <div class="container">
+                  <h3>Login</h3>
+                  <label for="username"><b>User Name</b></label>
+                  <input type="text" placeholder="Enter User Name: " name="username" required>
+                  <label for="psw"><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password: " name="psw" required>
+                  <div class="dropdown-content">
+                    <a href="{% url 'djangoapp:login' %}"><button type="button" class="btn btn-primary">Login</button></a>
+                    <a href="{% url 'djangoapp:registration' %}"><button type="button" class="btn btn-primary">Signup</button></a>
+                  </div>
+                </div>
+              </form>
+            </div>
             {% endif %}
         </div>
     </nav>
